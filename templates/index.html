@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+<!-- content  -->
+{% block content %}
+<!-- Carousel -->
+<div
+  id="carousel"
+  class="carousel slide"
+  data-ride="carousel"
+  data-interval="3500"
+  data-pause="false"
+>
+
+  <ol class="carousel-indicators">
+    {% for banner in banners %}
+    <li data-target="#carousel" data-slide-to="{{banner.id}}" class="{% if forloop.counter0 == 0 %}active{% endif %}"></li>
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner">
+    {% for banner in banners %}  
+    <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" >
+      <img src="{{banner.image.url}}" class="d-block  w-100 m-auto" alt="slide">
+    </div>
+    {% endfor %}  
+
+  </div>
+
+
+</div>
+
+<!-- Listings -->
+<section id="listings" class="py-5">
+  <div class="container">
+    <h3 class="text-center mb-3">Latest Products</h3>
+    <div class="row">
+      {% if products %}
+      <!-- Product  -->
+      {% for product in products %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card listing-preview">
+          <img class="card-img-top" src="{{product.image.url}}" alt="product" />
+          <div class="card-img-overlay">
+            <h2>
+              <span class="badge badge-secondary text-white"
+                >฿ {{product.price}}</span
+              >
+            </h2>
+          </div>
+          <div class="card-body">
+            <div class="listing-heading text-center">
+              <h4 class="text-primary">{{product.name}}</h4>
+            </div>
+            <hr />
+
+            <div class="row px-2">
+              <p>{{product.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <div class="col-md-12 text-center my-5">
+        <h3>No Product Available</h3>
+      </div>
+      {% endif%}
+    </div>
+
+    <a href="{% url 'products' %}" class="btn btn-block btn-primary">
+      <h4>Click here to see all products !</h4>
+    </a>
+  </div>
+</section>
+
+{% endblock content %}
